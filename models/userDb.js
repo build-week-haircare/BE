@@ -46,6 +46,7 @@ function getPortfolioById(id) {
 
 function insert(user) {
   return db('posts')
+    .returning('id')
     .insert(user)
 }
 
