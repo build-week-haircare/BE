@@ -12,15 +12,15 @@ exports.up = function(knex) {
             .onUpdate('CASCADE')
             .onDelete('CASCADE');
         stylists
-            .string('username', 255)
+            .text('username')
             .notNullable()
         stylists
-            .string('about', 256)
+            .text('about')
             .notNullable();
         stylists
-            .string('skills', 256);
+            .text('skills');
         stylists
-            .string('profile_img', 255)
+            .text('profile_img')
             .defaultTo('https://source.unsplash.com/200x200/?hair')
     })
 };

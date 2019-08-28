@@ -31,5 +31,9 @@
   "devDependencies": {
     "jest-dom": "^4.0.0",
     "nodemon": "^1.19.1"
+  },
+  "engines": {
+    "npm": "6.4.1",
+    "node": "10.15.3"
   }
 }

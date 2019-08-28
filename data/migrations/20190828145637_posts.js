@@ -13,13 +13,13 @@ exports.up = function(knex) {
             .onDelete('CASCADE')
             .onUpdate('CASCADE');
         posts
-            .string('title', 255)
+            .text('title')
             .notNullable()
         posts
-            .string('posts_image', 255)
+            .text('posts_image')
             .defaultTo('https://source.unsplash.com/400x400/?hair')
         posts
-            .string('description', 255);
+            .text('description');
     })
 };
 
