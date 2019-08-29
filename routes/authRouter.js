@@ -29,27 +29,26 @@ router.post("/login", (req, res) => {
   Users.findBy(email)
     .then(users => {
       if (users[0]) {
-        // && bcrypt.compareSync(password, users[0].password)) {
-        // Users;
-        // const token = genToken(users[0]);
-        // const id = users.id;
-        // const type = users.stylist;
-        // res.status(200).json({
-        //   message: `Welcome!`,
-        //   token,
-        //   id,
-        //   type
-        // });
-        // hi
-        res.status(200).json({user: users[0], passHash: bcrypt.hashSync(password), userHash: users[0].password, isSame: bcrypt.compareSync(password, users[0].password)});
-      } else {
-        res
-          .status(401)
-          .json({
+        if (bcrypt.compareSync(password, users[0].password)) {
+          Users;
+          const token = genToken(users[0]);
+          const id = users.id;
+          const type = users.stylist;
+          res.status(200).json({
+            message: `Welcome!`,
+            token,
+            id,
+            type
+          });
+        } else {
+          res.status(401).json({
             message: "Invalid Credentials",
             users: users,
             user: users[0]
           });
+        }
+      } else {
+        res.status(400).json("Invalid email")
       }
     })
     .catch(err => {
