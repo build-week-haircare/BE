@@ -1,76 +1,51 @@
-require('dotenv').config();
-const router = require('express').Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+require("dotenv").config();
+const router = require("express").Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-const Users = require('../models/userDb.js');
-const secrets = require('../configs/secrets.js');
+const Users = require("../models/userDb.js");
+const secrets = require("../configs/secrets.js");
 
 // for endpoints beginning with /api/auth
-router.post('/register', (req, res) => {
+router.post("/register", (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
   user.password = hash;
 
-  Users
-    .insert(user)//uses add from users-model
+  Users.insert(user) //uses add from users-model
     .then(saved => {
       res.status(201).json({
-        message: 'You have Successfully registered', saved});
+        message: "You have Successfully registered",
+        saved
+      });
     })
     .catch(error => {
-      res.status(500).json({error:error});
+      res.status(500).json({ error: error });
     });
 });
 
-router.post('/login', (req, res) => {
+router.post("/login", (req, res) => {
   let { email, password } = req.body;
-
-  // Users.findBy(email)//uses findby from users
-  //   .first()
-  //   .then(user => {
-  //     // console.log('this is from login', user);
-  //     if (user && bcrypt.compareSync(password, user.password)) {
-  //       //generate a token
-  //       const token = genToken(user);
-  //       // console.log('this is the token', token);
-  //       const ID = user.id;
-  //       const type = user.stylist;
-  //       res.status(200).json({
-  //         message: `Welcome!`,
-  //         token,
-  //         ID,
-  //         type 
-  //       });
-  //     } else {
-  //       res.sendStatus(401).json({ message: 'Invalid Credentials' });
-  //     }
-  //   })
-  //   .catch(error => {
-  //     res.sendStatus(500).json(error);
-  //   });
-
-    Users
-      .findBy(email)
-      .then(users => {
-        if (users[0] && bcrypt.compareSync(password, users[0].password)) {
-          Users;
-          const token = genToken(users[0]);
-          const id = users.id;
+  Users.findBy(email)
+    .then(users => {
+      if (users[0] && bcrypt.compareSync(password, users[0].password)) {
+        Users;
+        const token = genToken(users[0]);
+        const id = users.id;
         const type = users.stylist;
         res.status(200).json({
           message: `Welcome!`,
           token,
           id,
-          type 
+          type
         });
-        } else {
-          res.status(401).json({ message: "Invalid Credentials!" });
-        }
-      })
-      .catch(err => {
-        res.sendStatus(500).json(err);
-      });
+      } else {
+        res.status(401).json({ message: "Invalid Credentials!" });
+      }
+    })
+    .catch(err => {
+      res.sendStatus(500).json(err);
+    });
 });
 
 function genToken(user) {
@@ -78,11 +53,10 @@ function genToken(user) {
     subject: user.id,
     email: user.email,
     stylist: user.stylist
-
   };
-  const options ={
-    expiresIn: '1d',
-  }
+  const options = {
+    expiresIn: "1d"
+  };
 
   return jwt.sign(payload, secrets.jwtSecret, options);
 }
