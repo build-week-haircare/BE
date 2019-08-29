@@ -29,11 +29,12 @@ router.post("/login", (req, res) => {
   Users.findBy(email)
     .then(users => {
       if (users[0]) {
-        if (bcrypt.compareSync(password, users[0].password)) {
+        const user = users[0]
+        if (bcrypt.compareSync(password, user.password)) {
           Users;
-          const token = genToken(users[0]);
-          const id = users.id;
-          const type = users.stylist;
+          const token = genToken(user);
+          const id = user.id;
+          const type = user.stylist;
           res.status(200).json({
             message: `Welcome!`,
             token,
