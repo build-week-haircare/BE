@@ -5,6 +5,7 @@ module.exports = {
   getAllUsers,
   getById,
   insert,
+  insertPost,
   update,
   updatePost,
   remove,
