@@ -9,7 +9,7 @@ const restricted = require('../middleware/restricted.js');
 const router = express.Router();
 
 //make a constant reply for 404 and 500
-const sendErr = (msg, res) => {
+const sendError = (msg, res) => {
     res.status(500).json( { errorMessage: `${msg}` })
 };
 const sendMissingID = (res) => {
@@ -25,7 +25,8 @@ router.get('/', restricted, (req, res) => {
         res.status(200).json(stylist);
     })
     .catch( err => {
-        return sendErr( 'stylist information is unavailable at this time', res );
+      console.log(err)
+        return sendError( 'stylist information is unavailable at this time', res );
     })
 });
 
@@ -43,7 +44,8 @@ router.get('/:id', restricted, (req, res) => {
         }
     })
     .catch( err => {
-        return sendErr( 'stylist information is unavailable at this time', res );
+      console.log(err)
+        return sendError( 'stylist information is unavailable at this time', res );
     })
 });
 
@@ -58,8 +60,8 @@ router.post('/', restricted, (req, res) => {
       });
     })
     .catch( err => {
-      //console.log(err)
-      return sendErr( 'This function is currently unavailable', res );
+      console.log(err)
+      return sendError( 'This function is currently unavailable', res );
     })
 })
 
@@ -69,12 +71,12 @@ router.put('/:id', restricted, (req, res) => {
     const ID = req.params.id
   
     //define req.body
-    const { username, password, type, about, skills } = req.body;
-    const stylist = { username, password, type, about, skills };
+    const { username, user_id, profile_img, about, skills } = req.body;
+    const stylist = { username, user_id, profile_img, about, skills };
   
     //check the req body
-    if(!username || !password || !about) { 
-      return res.status(400).json({ error: 'Please provide the NEW stylist name, password, about section' });
+    if(!username) { 
+      return res.status(400).json({ error: 'Please provide the NEW stylist name' });
     }
     Stylists
     .update(ID, stylist)
@@ -84,11 +86,12 @@ router.put('/:id', restricted, (req, res) => {
         return sendMissing(res);
       }
       else{
-        newStylist = { ID, username, password, type, about, skills }
+        newStylist = { username, user_id, profile_img, about, skills}
         return res.status(201).json(newStylist);
       }
     })
     .catch( err => {
+      console.log(err)
       return sendError( 'This function is currently unavailable', res );
     })
 })
@@ -109,6 +112,7 @@ router.delete('/:id', restricted, (req, res) => {
       }
     })
     .catch( err => {
+      console.log(err)
       return sendError( 'This function is currently unavailable', res );
     })
 })
