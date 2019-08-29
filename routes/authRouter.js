@@ -43,11 +43,11 @@ router.post('/login', (req, res) => {
           type 
         });
       } else {
-        res.status(401).json({ message: 'Invalid Credentials' });
+        res.sendStatus(401).json({ message: 'Invalid Credentials' });
       }
     })
     .catch(error => {
-      res.status(500).json(error);
+      res.sendStatus(500).json(error);
     });
 });
 
