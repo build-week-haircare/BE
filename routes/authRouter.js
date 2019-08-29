@@ -41,7 +41,7 @@ router.post("/login", (req, res) => {
         //   type
         // });
         // hi
-        res.status(200).json(users[0]);
+        res.status(200).json({user: users[0], passHash: bcrypt.hashSync(password), userHash: users[0].password, isSame: bcrypt.compareSync(password, users[0].password)});
       } else {
         res
           .status(401)
