@@ -9,7 +9,7 @@ const secrets = require("../configs/secrets.js");
 // for endpoints beginning with /api/auth
 router.post("/register", (req, res) => {
   let user = req.body;
-  const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
+  const hash = bcrypt.hashSync(user.password); // 2 ^ n
   user.password = hash;
 
   Users.insert(user) //uses add from users-model
@@ -40,7 +40,7 @@ router.post("/login", (req, res) => {
           type
         });
       } else {
-        res.status(401).json({ message: "Invalid Credentials!" });
+        res.status(401).json({ message: "Invalid Credentials!", users: users, user: users[0] });
       }
     })
     .catch(err => {
