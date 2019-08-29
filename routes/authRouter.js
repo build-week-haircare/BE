@@ -26,29 +26,51 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
   let { email, password } = req.body;
 
-  Users.findBy(email)//uses findby from users
-    .first()
-    .then(user => {
-      // console.log('this is from login', user);
-      if (user && bcrypt.compareSync(password, user.password)) {
-        //generate a token
-        const token = genToken(user);
-        // console.log('this is the token', token);
-        const ID = user.id;
-        const type = user.stylist;
+  // Users.findBy(email)//uses findby from users
+  //   .first()
+  //   .then(user => {
+  //     // console.log('this is from login', user);
+  //     if (user && bcrypt.compareSync(password, user.password)) {
+  //       //generate a token
+  //       const token = genToken(user);
+  //       // console.log('this is the token', token);
+  //       const ID = user.id;
+  //       const type = user.stylist;
+  //       res.status(200).json({
+  //         message: `Welcome!`,
+  //         token,
+  //         ID,
+  //         type 
+  //       });
+  //     } else {
+  //       res.sendStatus(401).json({ message: 'Invalid Credentials' });
+  //     }
+  //   })
+  //   .catch(error => {
+  //     res.sendStatus(500).json(error);
+  //   });
+
+    Users
+      .findBy(email)
+      .then(users => {
+        if (users[0] && bcrypt.compareSync(password, users[0].password)) {
+          Users;
+          const token = generateToken(users[0]);
+          const id = users.id;
+        const type = users.stylist;
         res.status(200).json({
           message: `Welcome!`,
           token,
-          ID,
+          id,
           type 
         });
-      } else {
-        res.sendStatus(401).json({ message: 'Invalid Credentials' });
-      }
-    })
-    .catch(error => {
-      res.sendStatus(500).json(error);
-    });
+        } else {
+          res.status(401).json({ message: "Invalid Credentials!" });
+        }
+      })
+      .catch(err => {
+        res.sendStatus(500).json(err);
+      });
 });
 
 function genToken(user) {
