@@ -26,7 +26,7 @@ function getAllUsers(){
 
 function findBy(filter) {
   return db('users')
-  .where(filter);
+  .where(`${filter}`, filter);
 }
 
 function getById(id) {
