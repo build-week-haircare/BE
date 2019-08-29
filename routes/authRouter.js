@@ -38,7 +38,7 @@ router.post('/login', (req, res) => {
         const type = user.stylist;
         res.status(200).json({
           message: `Welcome!`,
-          token,// added token
+          token,
           ID,
           type 
         });
