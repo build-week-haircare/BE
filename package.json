@@ -6,8 +6,7 @@
   "scripts": {
     "server": "nodemon index.js",
     "test": "cross-env DB_ENV=testing jest --watch",
-    "start": "node index.js",
-    "heroku-postbuild": "knex migrate:latest && knex seed:run"
+    "start": "node index.js"
   },
   "repository": "https://github.com/build-week-haircare/BE.git",
   "author": "someone",
