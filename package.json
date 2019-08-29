@@ -7,7 +7,7 @@
     "server": "nodemon index.js",
     "test": "cross-env DB_ENV=testing jest --watch",
     "start": "node index.js",
-    "heroku-postbuild": "knex migrate:latest && knex seed:run" 
+    "heroku-postbuild": "knex migrate:latest && knex seed:run"
   },
   "repository": "https://github.com/build-week-haircare/BE.git",
   "author": "someone",
@@ -33,7 +33,7 @@
     "nodemon": "^1.19.1"
   },
   "engines": {
-    "npm": "6.4.1",
-    "node": "10.15.3"
+    "npm": "6.11.2",
+    "node": "10.16.3"
   }
 }

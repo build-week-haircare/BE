@@ -26,7 +26,7 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
   let { email, password } = req.body;
 
-  Users.findBy({ email })//uses findby from users-model
+  Users.findBy(email)//uses findby from users-model
     .first()
     .then(user => {
       // console.log('this is from login', user);
