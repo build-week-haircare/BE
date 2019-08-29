@@ -19,7 +19,7 @@ router.post('/register', (req, res) => {
         message: 'You have Successfully registered', saved});
     })
     .catch(error => {
-      res.status(500).json(error);
+      res.status(500).json({error:error});
     });
 });
 

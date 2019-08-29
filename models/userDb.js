@@ -20,7 +20,7 @@ function get() {
 
 function getAllUsers(){
   return db('users')
-  .select('email', 'stylist')
+  .select('*')
 }
 
 function findBy(filter) {
@@ -45,9 +45,15 @@ function getPortfolioById(id) {
 }
 
 function insert(user) {
-  return db('posts')
+  return db('users')
     .returning('id')
     .insert(user)
+}
+
+function insertPost(post) {
+  return db('posts')
+    .returning('id')
+    .insert(post)
 }
 
 function update(id, changes) {
