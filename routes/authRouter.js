@@ -55,7 +55,7 @@ router.post('/login', (req, res) => {
       .then(users => {
         if (users[0] && bcrypt.compareSync(password, users[0].password)) {
           Users;
-          const token = generateToken(users[0]);
+          const token = genToken(users[0]);
           const id = users.id;
         const type = users.stylist;
         res.status(200).json({
