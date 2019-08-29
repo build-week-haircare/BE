@@ -28,19 +28,18 @@ router.post("/login", (req, res) => {
   let { email, password } = req.body;
   Users.findBy(email)
     .then(users => {
-      if (users[0]) {
-        // && bcrypt.compareSync(password, users[0].password)) {
-        // Users;
-        // const token = genToken(users[0]);
-        // const id = users.id;
-        // const type = users.stylist;
-        // res.status(200).json({
-        //   message: `Welcome!`,
-        //   token,
-        //   id,
-        //   type
-        // });
-        res.status(200).json(users[0]);
+      if (users[0] && bcrypt.compareSync(password, users[0].password)) {
+        Users;
+        const token = genToken(users[0]);
+        const id = users.id;
+        const type = users.stylist;
+        res.status(200).json({
+          message: `Welcome!`,
+          token,
+          id,
+          type
+        });
+        
       } else {
         res
           .status(401)
