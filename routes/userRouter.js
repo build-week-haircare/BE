@@ -31,7 +31,7 @@ router.get('/', restricted, async (req, res) => {
 });
 
 //get requests all users users
-router.get('/all', async (req, res) => {
+router.get('/all', restricted, async (req, res) => {
     try{
         const all = await Users.getAllUsers();
         res.status(200).json({all});
