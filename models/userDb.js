@@ -24,9 +24,9 @@ function getAllUsers(){
   .select('*')
 }
 
-function findBy(email) {
+function findBy(filter) {
   return db('users')
-  .where('email', email);
+  .where(filter);
 }
 
 function getById(id) {
