@@ -1,6 +1,6 @@
 ## Server is live on:
 
-
+https://bw-hair-care-be.herokuapp.com/
 
 # AUTH ROUTE
 
